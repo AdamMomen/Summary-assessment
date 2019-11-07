@@ -270,14 +270,40 @@ ReadingList1 = ReadingList();
   //return "Can't fit" if you try to add an item that exceeds the storage size limit
   //when the safe is full return a string representing all the items that are in the safe
   //Example:
-  //  var safe = makeSafe(5)
+    var safe = makeSafe(5)
   //  safe('watch','small')
   //  safe('gold-bar','big')
   //  safe('silver-bar','big') => "Can't fit"
   //  safe('money','small') => "watch gold-bar money"
   
   // Write your code here .....
-  
+//0 entering the intail size 
+//1 
+
+  function makeSafe(intialsize) {
+
+  var itemStored = '';
+  var  space = intialsize;
+//showing the items stored when the the safe is full // showing the items inside and reseting the  stord items string.  
+    return function (item, size) {
+      if (space <= 0) {
+        console.log (itemStored);
+        return itemStored = '';
+        }
+
+      //checking  if the size small/med/big and check space before storing the item.
+      if ( size ==='small' && space >= 1) {
+        space -= 1; 
+        itemStored += item;
+      } else if ( size ==='medium' && space >= 2) {
+        space -= 2;
+        itemStored += item; 
+      } else if (size ==='big' && space >= 3) {
+        space -= 3; 
+        itemStored += item;
+    }
+  }
+}
   //=============================================================================
   /*                                  Q8                                       */
   //=============================================================================
@@ -318,10 +344,10 @@ ReadingList1 = ReadingList();
   //================================================================================
   // Theoretical questions.
   // 1- In your own words,Why do we use Closures ?
-  
+    to store values in  varaibe in functions and varible is not in  global scope and not to lose the values each time we call the function .
   // 2- In OOP, what does "this" refer to ?
-  
+  this refer to the object declared moreover it seaches for the key in the the in object in the vicinity.
   // 3- What is jQuery?
-  
+    a library that has js code storded in it that has commands translated and simplified to do the same as js
   // 4- what is the diffrence between Closure's methods and The OOP's methods?
-  
+    closurs are storing functions inside the object and object declaring a varble  for a function  and sroting a varibel as value of a key.
