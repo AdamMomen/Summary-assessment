@@ -51,19 +51,26 @@ function each(coll, f) {
   }
   
   //=============================================================================
-  /*                              Q1                                           */
+  /*                              Q1            (DONE)                       */
   //=============================================================================
   //write a function that takes a string as an input and returns an array
   //containing the length of each word in that string.
   //solve it using the most appropriate helper functions(reduce,each,map,filter).
   //wordLengths("hello its me") // [5,3,2]
   
+  // pseudo-code
+//1 spliting the string into array 
+//2 using map function for iteration and returning each element's length in array 
+
   function wordLengths(str) {
-      // TODO: your code here 
+  var splited = str.split(' ');
+    return map(splited, function (element, index) {
+      return  element.length;
+    },);
   }
   
   //=============================================================================
-  /*                                  Q2                                    */
+  /*                                  Q2       (NOT DONE)                             */
   //=============================================================================
   //Write a function countOccurrences that accepts two parameters: a string, 
   // and a character (e.g. "a"), and returns number of times that character occured.
@@ -71,8 +78,19 @@ function each(coll, f) {
   // countOccurrences("hello", "l"); // 2
   // countOccurrences("hello, world!", "l"); // 3
   
+   // pseudo-code
+//1 spliting the string into array
+//2 using reduce function bc we need to return value of one variable
+//3 iteration , checking each element if matchs the character
+//4 if matched increase result by 1 
   function countOccurrences(string, character) {
-      // your code is here
+    var splited = string.split('');
+      return reduce(splited, function (result, element) {
+        if( element === character ) {
+         return   result + 1;
+         console.log(result);
+        }
+    },0);
   }
   
   //=============================================================================
@@ -83,12 +101,21 @@ function each(coll, f) {
   //solve it using the most appropriate helper functions(reduce,each,map,filter).
   // wordsLongerThanThree("Hello Mad World") //["Hello", "World"]
   
+     // pseudo-code
+//1 spliting the string into array
+//2 using filter function for iterationm checking if element's string length is grater tham 3 --> returning the element in other array (acc)
+//3 returning the result as o/p
+
+
   function wordsLongerThanThree(str) {
-      // TODO: your code here 
+   var splited = str.split(' ');
+    return filter(splited, function (element) {
+     return element.length > 3;
+   })
   }
   
   //=============================================================================
-  /*                                  Q4                                        */
+  /*                                  Q4         (DONE)                               */
   //=============================================================================
   //Using recursion, write a function called repeatString that takes two parameters: a string str, 
   //which is the string to be repeated, and count, a number 
@@ -98,13 +125,24 @@ function each(coll, f) {
   //repeatString('dog', 2); // => 'dog' + 'dog' => 'dogdog' 
   //repeatString('dog', 3); // => 'dog' + 'dog' + 'dog' => 'dogdogdog'
   
-  function repeatString(str, count) { 
-   // TODO: your code here 
+    // pseudo-code
+//0 setting the resultStr in OR logic operator to previos value when we call it or take empty str;
+//1 the stoping condition is when the counter = 0 // this will return the result in the last step
+//2 each recursive run , decrease counter by 1;
+//3 return result string if the counter reached 0
+
+  function repeatString(str, count, resultStr) {
+  var resultStr = resultStr || '';   
+  if (count === 0) {
+    return resultStr;
+    }
+    resultStr += str;
+    return repeatString( str, count-1, resultStr )
   } 
    
   
   //=============================================================================
-  /*                                  Q5                                       */
+  /*                                  Q5          (DONE)                             */
   //=============================================================================
   /*
    using closures create a function called makePizza that has the following properties and methods
@@ -118,20 +156,58 @@ function each(coll, f) {
    eatSlice a function that let you eat from the pizza as long as the numberOfSlice is greater than zero and decrease the total number of slices by one.
    */
   //Example:
-  // var pizza = makePizza("thin", "M", 2);
-  // pizza.addIngredients("tomato");
-  // pizza.addIngredients("meshroom");
-  // pizza.addIngredients("meat");
-  // console.log(pizza.displayIngredaints());
-  // pizza.bakePizza();
-  // pizza.eatSlice();
-  // pizza.eatSlice();
-  // pizza.eatSlice();
+   var pizza = makePizza("thin", "M", 2);
+   pizza.addIngredients("tomato");
+   pizza.addIngredients("meshroom");
+   pizza.addIngredients("meat");
+
+   //modified the displayIngredaints call so it will return me the value without console.log
+   pizza.displayIngredaints();
+   pizza.bakePizza();
+   pizza.eatSlice();
+   pizza.eatSlice();
+   pizza.eatSlice();
   
+   // pseudo-code
+//0 created array for ingredients that srores the ingresients inside
+//1 object that store all the properties and function property
+//2 each function should have certain task when it's called
+
+
+
   // Write your code here .....
-  
+ function makePizza(crust, size, numberOfSlice){
+var  ingredientsArr = [];
+return {
+      crust: crust,
+      size: size,
+      numberOfSlice: numberOfSlice,
+      ingredients: ingredientsArr,
+        addIngredients: function(ingredients) {
+          ingredientsArr.push(ingredients);
+         },
+
+        displayIngredaints: function() {
+          return 'The ingredients are: ' + ingredientsArr.join(',');
+         }, 
+         // set delay of 2sec to before returning
+        bakePizza: function() {
+        setInterval( function () {
+           console.log( 'Your thin' + size + ' '  + numberOfSlice + ' slice ' + 'pizza is done');
+            }, 2000)
+          },
+          //eatSlice will decrease  numberOfSlice by 1 each call
+        eatSlice: function () {
+          if (numberOfSlice > 0) {
+            return numberOfSlice -= 1;
+          } else {
+            return 'pizza is completed';  
+        }   
+     } 
+  }
+}
   //=============================================================================
-  /*                                  Q6                                      */
+  /*                                  Q6              (DONE)                        */
   //=============================================================================
   /*
   Create a ReadingList class by using OOP concept, where:
@@ -155,7 +231,33 @@ function each(coll, f) {
   // Now, to make sure that you are actually reading, make a comment below this and type: Yes I am
   
   // Write your code here .....
-  
+  function ReadingList() {
+    var list = {};
+      list.Read = 0;
+      list.unRead = 0;
+      list.toRead = [];
+      list.currentRead;
+      list.readBooks = [];
+      list.AddBook = AddBook;
+      list.finishCurrentBook = finishCurrentBook;
+    return list;
+  }
+  // add a bookname , push it to toRead array, increase unRead counter assign the first the value of toRead Array to currentRead
+  var AddBook = function (bookName) {
+    this.toRead.push(bookName);
+    this.unRead += 1;
+    this.currentRead = this.toRead[0]
+  }
+  //deletes the first element in the toRead array , push currnetlyread book to readBook, re - assign the first the value of toRead Array to currentRead
+  // increase the Read books counter by 1, decrease the UNREAD books counter by 1
+  var finishCurrentBook = function () {
+    this.toRead = this.toRead.slice(1);
+    this.readBooks.push(this.currentRead);
+    this.currentRead = this.toRead[0]
+    this.Read += 1;
+    this.unRead -= 1;
+  }
+ReadingList1 = ReadingList();
   //=============================================================================
   /*                                  Q7                                       */
   //=============================================================================
